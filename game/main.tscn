@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://test123"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_abc"]
+font_size = 64
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Feed the Pups!"
+label_settings = SubResource("LabelSettings_abc")
+horizontal_alignment = 1

@@ -1,0 +1,11 @@
+# Godot cache and generated files
+.godot/
+
+# iOS build artifacts
+ios_build/
+
+# Export presets contain Team ID - use template instead
+export_presets.cfg
+
+# macOS
+.DS_Store
