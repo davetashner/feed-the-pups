@@ -14,7 +14,7 @@ config/name="Feed the Pups"
 config/description="A treat-throwing game for kids"
 run/main_scene="res://prototype.tscn"
 config/features=PackedStringArray("4.5", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [display]
 

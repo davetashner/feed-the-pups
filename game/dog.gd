@@ -12,13 +12,12 @@ func _on_body_entered(body: Node) -> void:
 		treat_caught.emit()
 
 		# Simple catch feedback - flash green
-		var body_rect = $Body as ColorRect
-		var original_color = body_rect.color
-		body_rect.color = Color(0.2, 0.9, 0.2, 1)
+		var sprite = $Body as Sprite2D
+		sprite.modulate = Color(0.5, 1.0, 0.5, 1)
 
 		# Remove the treat
 		body.queue_free()
 
 		# Reset color after brief flash
 		await get_tree().create_timer(0.15).timeout
-		body_rect.color = original_color
+		sprite.modulate = Color(1, 1, 1, 1)

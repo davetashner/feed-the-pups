@@ -25,9 +25,11 @@ Constraints:
 
 ## Decision
 
-**[TO BE DECIDED]**
+**Option B (Asset Packs) initially, with Option A (AI-Generated) for gaps**
 
-Options under consideration:
+Start with curated asset packs that match the "chunky cartoon" style defined in `art-style-guide.md`. Fill gaps with AI-generated assets as needed. This approach prioritizes speed and consistency while staying within budget.
+
+Options considered:
 
 ### Option A: AI-Generated Art
 - Use AI tools (DALL-E, Midjourney, Stable Diffusion) to generate base assets
@@ -63,7 +65,36 @@ Options under consideration:
 
 ## Consequences
 
-[To be filled after decision]
+### Positive
+- Fast iteration - can test assets immediately without creation time
+- Professional quality from established asset creators
+- Budget-friendly ($0-30 range)
+- AI generation available as fallback for custom needs
+
+### Negative
+- May need to adjust game design to fit available assets
+- Style consistency requires careful curation
+- Dog-specific assets are limited; may need AI generation for variety
+
+### Mitigations
+- Created comprehensive `art-style-guide.md` to evaluate asset compatibility
+- Defined clear specifications for asset formats and naming
+- Will test assets in-game before committing to a pack
+
+## Asset Sources (Evaluated)
+
+### For Dogs
+- **itch.io Dog Packs** - Several options available:
+  - [Dogs tag](https://itch.io/game-assets/tag-dogs) - Dog Mega Pack, Pet Dogs Pack (8 breeds)
+  - [2D + Dog](https://itch.io/game-assets/tag-2d/tag-dog) - Cartoonish pixel art dogs
+  - [Free dog assets](https://itch.io/game-assets/free/tag-dog) - 18 free options
+- Note: Kenney's Animal Pack does NOT include dogs
+
+### For UI
+- **Kenney UI Pack** - Clean, rounded buttons and elements (free, CC0)
+
+### For Backgrounds
+- AI-generated recommended (no good chunky cartoon background packs found)
 
 ## References
 - [Kenney Game Assets](https://kenney.nl/) - Free, high-quality game assets
