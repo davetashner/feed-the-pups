@@ -26,10 +26,28 @@
 | Location | Spawn Points (X, Y) |
 |----------|---------------------|
 | Kitchen | (1200, 850), (1500, 850), (1750, 850) |
+| NYC | (1150, 830), (1450, 830), (1700, 830) |
 | Paris | (1150, 820), (1450, 820), (1700, 820) |
+| Camping | (1150, 860), (1450, 860), (1700, 860) |
+| Ashland | (1150, 850), (1450, 850), (1700, 850) |
+| Cave | (1150, 870), (1450, 870), (1700, 870) |
 | Texas | (1100, 880), (1400, 880), (1700, 880) |
 | Italy | (1200, 840), (1500, 840), (1750, 840) |
 | Riverside | (1150, 860), (1450, 860), (1700, 860) |
+
+### Level-to-Location Mapping (evolving to 1 background per level)
+
+| Level | Location |
+|-------|----------|
+| 1 | Kitchen |
+| 2 | NYC |
+| 3 | Paris |
+| 4 | Camping |
+| 5 | Ashland |
+| 6 | Cave |
+| 7 | Italy |
+| 8 | Texas |
+| 9-10 | Riverside |
 
 ### Project Structure
 

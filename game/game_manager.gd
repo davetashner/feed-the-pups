@@ -42,7 +42,11 @@ const LEVEL_DURATION = 60.0  # seconds
 # Background textures by location
 const BACKGROUNDS = {
 	"kitchen": "res://assets/backgrounds/bg_kitchen_main.png",
+	"nyc": "res://assets/backgrounds/bg_nyc_main.png",
 	"paris": "res://assets/backgrounds/bg_paris_main.png",
+	"camping": "res://assets/backgrounds/bg_camping_main.png",
+	"ashland": "res://assets/backgrounds/bg_ashland_main.png",
+	"cave": "res://assets/backgrounds/bg_cave_main.png",
 	"texas": "res://assets/backgrounds/bg_texas_main.png",
 	"italy": "res://assets/backgrounds/bg_italy_main.png",
 	"riverside": "res://assets/backgrounds/bg_oriental_main.png",
@@ -56,10 +60,30 @@ const SPAWN_POINTS = {
 		Vector2(1500, 850),
 		Vector2(1750, 850),
 	],
+	"nyc": [
+		Vector2(1150, 830),
+		Vector2(1450, 830),
+		Vector2(1700, 830),
+	],
 	"paris": [
 		Vector2(1150, 820),
 		Vector2(1450, 820),
 		Vector2(1700, 820),
+	],
+	"camping": [
+		Vector2(1150, 860),
+		Vector2(1450, 860),
+		Vector2(1700, 860),
+	],
+	"ashland": [
+		Vector2(1150, 850),
+		Vector2(1450, 850),
+		Vector2(1700, 850),
+	],
+	"cave": [
+		Vector2(1150, 870),
+		Vector2(1450, 870),
+		Vector2(1700, 870),
 	],
 	"texas": [
 		Vector2(1100, 880),
@@ -81,13 +105,13 @@ const SPAWN_POINTS = {
 # Per-level settings (visibility window, spawn interval, background)
 const LEVEL_CONFIG = [
 	{"visibility": 4.0, "spawn_interval": 5.0, "dogs_max": 1, "location": "kitchen"},   # Level 1
-	{"visibility": 3.85, "spawn_interval": 4.8, "dogs_max": 2, "location": "kitchen"},  # Level 2
+	{"visibility": 3.85, "spawn_interval": 4.8, "dogs_max": 2, "location": "nyc"},      # Level 2
 	{"visibility": 3.70, "spawn_interval": 4.6, "dogs_max": 2, "location": "paris"},    # Level 3
-	{"visibility": 3.55, "spawn_interval": 4.4, "dogs_max": 2, "location": "paris"},    # Level 4
-	{"visibility": 3.40, "spawn_interval": 4.2, "dogs_max": 3, "location": "texas"},    # Level 5
-	{"visibility": 3.25, "spawn_interval": 4.0, "dogs_max": 3, "location": "texas"},    # Level 6
+	{"visibility": 3.55, "spawn_interval": 4.4, "dogs_max": 2, "location": "camping"},  # Level 4
+	{"visibility": 3.40, "spawn_interval": 4.2, "dogs_max": 3, "location": "ashland"},  # Level 5
+	{"visibility": 3.25, "spawn_interval": 4.0, "dogs_max": 3, "location": "cave"},    # Level 6
 	{"visibility": 3.10, "spawn_interval": 3.8, "dogs_max": 3, "location": "italy"},    # Level 7
-	{"visibility": 2.95, "spawn_interval": 3.6, "dogs_max": 4, "location": "italy"},    # Level 8
+	{"visibility": 2.95, "spawn_interval": 3.6, "dogs_max": 4, "location": "texas"},   # Level 8
 	{"visibility": 2.80, "spawn_interval": 3.4, "dogs_max": 4, "location": "riverside"},  # Level 9
 	{"visibility": 2.65, "spawn_interval": 3.2, "dogs_max": 5, "location": "riverside"},  # Level 10
 ]
