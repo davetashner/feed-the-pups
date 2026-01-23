@@ -11,6 +11,10 @@
 - bd-c001.2.2: Tap detection - closed as "not needed" for MVP
 - bd-c001.2.3: Input tuning - closed (feels natural, good thresholds)
 
+**Physics and Collision (bd-c001.3) - CLOSED:**
+- bd-c001.3.1: Treat projectile physics - RigidBody2D with gravity, arc trajectory works
+- bd-c001.3.2: Collision detection - Dog Area2D catches treats, floor detects misses
+
 **Location System (bd-p001.2):**
 - bd-p001.2.1: Location/background system - **CLOSED**
   - Added `BACKGROUNDS` dict and `get_level_background()` to GameManager
@@ -51,10 +55,10 @@ game/
 ### Recommended Next Items
 
 **Priority 0 (Core Engine):**
-1. **bd-c001.3: Physics and Collision** - Treat physics and collision detection
-2. **bd-c001.4: Timer and Scoring** - Formal timer/score system (prototype has basics)
+1. **bd-c001.4: Timer and Scoring** - Formal timer/score system (prototype has basics)
 
-**Priority 1 (Game Feel):**
+**Priority 1 (Core Engine & Game Feel):**
+- **bd-c001.5: Soft Failure Handling** - Encouraging messaging, no game-over states
 - **bd-g001.4: Game Feel / Juice** - Screen shake, particles, animated feedback
 
 ### Setup for New Session
