@@ -3,7 +3,7 @@ extends Control
 
 @onready var score_label: Label = $VBox/ScoreLabel
 @onready var accuracy_label: Label = $VBox/AccuracyLabel
-@onready var stars_label: Label = $VBox/StarsLabel
+@onready var stars_label: RichTextLabel = $VBox/StarsLabel
 @onready var message_label: Label = $VBox/MessageLabel
 @onready var replay_button: Button = $VBox/ButtonContainer/ReplayButton
 @onready var next_button: Button = $VBox/ButtonContainer/NextButton
