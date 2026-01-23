@@ -26,3 +26,4 @@ Each ADR follows this structure:
 | [005](./ADR-005-data-persistence.md) | Data Persistence Strategy (JSON) | Accepted |
 | [006](./ADR-006-photo-upload.md) | Photo Upload Implementation | Accepted |
 | [007](./ADR-007-audio-creation.md) | Audio Asset Creation (Hybrid) | Accepted |
+| [008](./ADR-008-scene-structure.md) | Scene Structure (Hybrid Scenes + Overlays) | Accepted |

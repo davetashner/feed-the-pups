@@ -1,0 +1,151 @@
+[gd_scene load_steps=8 format=3 uid="uid://gameplay001"]
+
+[ext_resource type="Script" path="res://scenes/gameplay.gd" id="1_gameplay"]
+[ext_resource type="PackedScene" uid="uid://dog001" path="res://dog.tscn" id="2_dog"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_kitchen_main.png" id="3_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1920, 50)
+
+[sub_resource type="LabelSettings" id="LabelSettings_score"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_timer"]
+font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_pause"]
+font_size = 48
+
+[node name="Gameplay" type="Node2D"]
+script = ExtResource("1_gameplay")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Floor" type="StaticBody2D" parent="." groups=["floor"]]
+position = Vector2(960, 1055)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Dog" parent="." instance=ExtResource("2_dog")]
+position = Vector2(1500, 800)
+
+[node name="ThrowZone" type="ColorRect" parent="."]
+offset_left = 50.0
+offset_top = 700.0
+offset_right = 400.0
+offset_bottom = 1000.0
+color = Color(0.4, 0.4, 0.6, 0.3)
+
+[node name="ThrowLabel" type="Label" parent="ThrowZone"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 170.0
+text = "Swipe here to throw!"
+horizontal_alignment = 1
+
+[node name="TrajectoryLine" type="Line2D" parent="."]
+width = 4.0
+default_color = Color(1, 0.8, 0.2, 0.7)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 50.0
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 80.0
+text = "Catches: 0"
+label_settings = SubResource("LabelSettings_score")
+
+[node name="TimerLabel" type="Label" parent="UI"]
+offset_left = 860.0
+offset_top = 30.0
+offset_right = 1060.0
+offset_bottom = 110.0
+text = "60"
+label_settings = SubResource("LabelSettings_timer")
+horizontal_alignment = 1
+
+[node name="AimButton" type="Button" parent="UI"]
+offset_left = 1750.0
+offset_top = 30.0
+offset_right = 1870.0
+offset_bottom = 80.0
+text = "Aim: ON"
+
+[node name="PauseButton" type="Button" parent="UI"]
+offset_left = 50.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 150.0
+text = "Pause"
+
+[node name="PauseOverlay" type="CanvasLayer" parent="."]
+visible = false
+layer = 10
+process_mode = 3
+
+[node name="Dimmer" type="ColorRect" parent="PauseOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="PausePanel" type="Panel" parent="PauseOverlay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="PauseOverlay/PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PausedLabel" type="Label" parent="PauseOverlay/PausePanel/VBox"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_pause")
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseOverlay/PausePanel/VBox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="PauseOverlay/PausePanel/VBox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="PauseOverlay/PausePanel/VBox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu"

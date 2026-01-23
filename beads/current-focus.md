@@ -1,89 +1,83 @@
 # Feed the Pups - Current Focus
 
-## Session Date: 2026-01-21
+## Session Date: 2026-01-22
 
-## Project Status: Dev Environment Complete, Ready for Prototype
+## Project Status: Game State Management Complete
 
 ### What Was Accomplished This Session
 
-- **bd-f001.1.1**: Installed Godot 4.5.1 via Homebrew with iOS export templates
-- **bd-f001.1.2**: Configured Xcode 26.2 with personal development team
-- **bd-f001.1.3**: Created minimal Godot project, runs successfully in editor
-- **bd-f001.1** (Epic): Development Environment Setup - **CLOSED**
+**Game Design Validation (bd-g001):**
+- **bd-g001.1** (Epic): Core Loop Prototype - **CLOSED**
+  - bd-g001.1.1-1.4: Prototype, dog target, timer, playtesting - all closed
+  - Core loop validated as fun!
+- **bd-g001.6.1-6.3**: Session pacing defined - **CLOSED**
+  - 60-second fixed level duration with rationale
+  - Spawn cadence: 5.0s (L1) → 3.2s (L10)
+  - Catch opportunities: 10-12 (early) → 15-18 (late)
+  - Dog visibility windows increased: 4.0s → 2.5s (child-friendly)
 
-### Technical Notes
+**Core Game Engine (bd-c001):**
+- **bd-c001.1** (Epic): Game State Management - **CLOSED**
+  - bd-c001.1.1: GameManager autoload with state machine, scene transitions, progress persistence
+  - bd-c001.1.2: Main menu scene with Play and Level Select
+  - bd-c001.1.3: Level select scene with 10-level grid, stars, locks
+  - bd-c001.1.4: Pause overlay with Resume, Restart, Menu
+  - bd-c001.1.5: Results scene with score, stars, encouraging messages
 
-| Component | Version/Status |
-|-----------|---------------|
-| Godot | 4.5.1 (`/Applications/Godot.app`) |
-| Xcode | 26.2 |
-| iOS Export Templates | Installed in `~/Library/Application Support/Godot/export_templates/4.5.1.stable/` |
-| Team ID | Configured in `export_presets.cfg` (not committed - use template) |
+**Architecture:**
+- **ADR-008**: Scene Structure (Hybrid Scenes + Overlays) - created and accepted
 
-### Known Limitations
-
-**iOS Simulator on Apple Silicon:**
-- Godot's official iOS export templates only include x86_64 for simulator
-- Apple Silicon Macs require arm64 simulator binaries
-- **Workaround**: Test in Godot editor during development, use physical iOS device for iOS-specific testing
-- This does not block prototype development
-
-### Project Structure
+### New Project Structure
 
 ```
 game/
-├── project.godot          # Godot project config
-├── main.tscn              # Main scene ("Feed the Pups!" label)
-├── icon.svg               # App icon
-├── export_presets.cfg     # iOS export config (gitignored - contains Team ID)
-├── export_presets.cfg.template  # Template for export config
-├── .gitignore             # Ignores .godot/, ios_build/, export_presets.cfg
-└── .godot/                # Godot cache (gitignored)
+├── game_manager.gd         # Autoload singleton (state, transitions, progress)
+├── scenes/
+│   ├── main_menu.tscn/gd   # Entry point
+│   ├── level_select.tscn/gd # Level grid
+│   ├── gameplay.tscn/gd    # Core gameplay (refactored from prototype)
+│   └── results.tscn/gd     # End-of-level results
+├── dog.tscn/gd             # Dog entity
+├── treat.tscn/gd           # Treat projectile
+└── assets/
+    └── backgrounds/        # Kitchen, Paris, Texas backgrounds
 ```
+
+### Technical Notes
+
+| Component | Implementation |
+|-----------|---------------|
+| State Machine | GameManager.GameState enum with signals |
+| Scene Transitions | Preloaded PackedScenes for instant transitions |
+| Progress Persistence | JSON file at user://progress.json |
+| Pause Handling | CanvasLayer overlay with process_mode=ALWAYS |
+| Star Calculation | Accuracy-based: 40%=1★, 65%=2★, 85%=3★ |
 
 ### Recommended Next Item
 
-**bd-g001.1.1: Create greybox throw prototype**
+**bd-c001.2: Touch Input System** or **bd-c001.3: Physics and Collision**
 
-This is the first prototype task:
-- Build minimal throw mechanic with placeholder art (colored rectangles)
-- Swipe to throw a "treat" toward a "dog" target area
-- No final art needed - placeholders only
+Both are priority 0 in Core Game Engine. The prototype already has basic implementations of both. Options:
+1. **Polish touch input** - refine swipe detection, add tap-to-throw accessibility
+2. **Polish physics** - tune trajectory, add generous hitboxes per bd-g001.5.4
 
-**Acceptance Criteria:**
-- Can swipe to throw
-- Treat arcs toward target
-- Placeholder graphics only
+Alternatively, focus on **art integration** since Texas and Paris backgrounds are ready.
 
 ### Setup for New Session
 
-If starting fresh, copy the export preset template:
-```bash
-cd game
-cp export_presets.cfg.template export_presets.cfg
-# Edit export_presets.cfg and replace YOUR_TEAM_ID_HERE with your Team ID
-```
+The game now starts at `scenes/main_menu.tscn`. To test:
+1. Open project in Godot
+2. Press F5 or click Play
+3. Click "Play" for quick start or "Select Level" for level grid
 
 ### Not Ready Yet
 
-The following items should NOT be started until prerequisites are complete:
-
-- Art/audio creation (needs style guide AND prototype validation first)
-- Level design beyond level 1-3 (needs core mechanics validated first)
+- Art/audio creation beyond backgrounds (needs more sprites)
 - iPad support (needs iPhone working first)
 - Catcher mode (DEFERRED TO POST-MVP)
-- iOS simulator testing (blocked by Godot template limitation - use physical device)
+- Tutorial system (needs core gameplay polished first)
 
 ### Open Questions / Blockers
 
-1. **Prototype feedback** - Does throwing treats feel fun? Only playtesting will answer.
-2. **iOS device testing** - When ready for device testing, will need to configure signing properly.
-
-### Backlog Statistics (Updated)
-
-| Initiative | ID | Status |
-|------------|-----|--------|
-| Foundation | bd-f001 | 1 epic closed, 2 epics open |
-| Game Design Validation | bd-g001 | Ready to start prototype |
-
-**Completed this session:** 4 items (1 epic + 3 tasks)
+1. **Test on device** - Game runs in editor but needs iOS device testing
+2. **Background integration** - Texas/Paris backgrounds added but not wired to levels yet
