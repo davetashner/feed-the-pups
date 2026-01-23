@@ -31,6 +31,13 @@ const BASE_POINTS := 100
 const STREAK_THRESHOLD := 3  # Streak bonus starts at 3 catches
 const STREAK_MULTIPLIER := 0.5  # +50% per streak level above threshold
 
+# Dog repositioning
+const DOG_REPOSITION_INTERVAL := 10.0  # seconds between position changes
+const DOG_MOVE_DURATION := 0.5  # tween duration for smooth movement
+var current_spawn_index := 0
+var reposition_timer := 0.0
+var spawn_points: Array = []
+
 # Round state
 var time_remaining := 60.0
 var round_active := false
@@ -71,6 +78,11 @@ func _ready() -> void:
 	var bg_path = GameManager.get_level_background(GameManager.current_level)
 	background.texture = load(bg_path)
 
+	# Get spawn points for this location and position dog at a random one
+	spawn_points = GameManager.get_spawn_points_for_level(GameManager.current_level)
+	current_spawn_index = randi() % spawn_points.size()
+	dog.position = spawn_points[current_spawn_index]
+
 	# Start immediately (no start button - we came from menu)
 	_start_round()
 
@@ -82,6 +94,12 @@ func _process(delta: float) -> void:
 
 		if time_remaining <= 0:
 			_end_round()
+
+		# Dog repositioning timer
+		reposition_timer += delta
+		if reposition_timer >= DOG_REPOSITION_INTERVAL:
+			_reposition_dog()
+			reposition_timer = 0.0
 
 
 func _input(event: InputEvent) -> void:
@@ -241,6 +259,7 @@ func _start_round() -> void:
 	current_streak = 0
 	best_streak = 0
 	time_remaining = GameManager.LEVEL_DURATION
+	reposition_timer = 0.0
 	round_active = true
 	throw_zone.visible = true
 	pause_overlay.visible = false
@@ -290,6 +309,23 @@ func _clear_all_treats() -> void:
 	for child in get_children():
 		if child is RigidBody2D:
 			child.queue_free()
+
+
+func _reposition_dog() -> void:
+	if spawn_points.size() <= 1:
+		return  # Can't reposition with only one spawn point
+
+	# Pick a different spawn point
+	var new_index := current_spawn_index
+	while new_index == current_spawn_index:
+		new_index = randi() % spawn_points.size()
+
+	current_spawn_index = new_index
+	var new_pos: Vector2 = spawn_points[current_spawn_index]
+
+	# Smooth tween to new position
+	var tween := create_tween()
+	tween.tween_property(dog, "position", new_pos, DOG_MOVE_DURATION).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 ## Pause handling

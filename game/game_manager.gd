@@ -48,6 +48,36 @@ const BACKGROUNDS = {
 	"riverside": "res://assets/backgrounds/bg_oriental_main.png",
 }
 
+# Spawn points per location (1-3 positions where dogs can appear)
+# Y values tuned so dogs appear on the ground, not floating
+const SPAWN_POINTS = {
+	"kitchen": [
+		Vector2(1200, 850),
+		Vector2(1500, 850),
+		Vector2(1750, 850),
+	],
+	"paris": [
+		Vector2(1150, 820),
+		Vector2(1450, 820),
+		Vector2(1700, 820),
+	],
+	"texas": [
+		Vector2(1100, 880),
+		Vector2(1400, 880),
+		Vector2(1700, 880),
+	],
+	"italy": [
+		Vector2(1200, 840),
+		Vector2(1500, 840),
+		Vector2(1750, 840),
+	],
+	"riverside": [
+		Vector2(1150, 860),
+		Vector2(1450, 860),
+		Vector2(1700, 860),
+	],
+}
+
 # Per-level settings (visibility window, spawn interval, background)
 const LEVEL_CONFIG = [
 	{"visibility": 4.0, "spawn_interval": 5.0, "dogs_max": 1, "location": "kitchen"},   # Level 1
@@ -157,6 +187,34 @@ func get_level_background(level_num: int) -> String:
 	var config = get_level_config(level_num)
 	var location = config.get("location", "kitchen")
 	return BACKGROUNDS.get(location, BACKGROUNDS["kitchen"])
+
+
+func get_spawn_point(level_num: int, index: int = -1) -> Vector2:
+	## Returns a spawn point for the given level's location.
+	## If index is -1, picks a random point using current time as seed.
+	## Otherwise returns the specific spawn point at that index.
+	var config = get_level_config(level_num)
+	var location = config.get("location", "kitchen")
+	var points = SPAWN_POINTS.get(location, SPAWN_POINTS["kitchen"])
+
+	if points.is_empty():
+		return Vector2(1500, 850)  # Fallback
+
+	if index >= 0 and index < points.size():
+		return points[index]
+
+	# Use current time as seed for reproducible-per-session randomness
+	var rng = RandomNumberGenerator.new()
+	rng.seed = int(Time.get_unix_time_from_system())
+	var random_index = rng.randi_range(0, points.size() - 1)
+	return points[random_index]
+
+
+func get_spawn_points_for_level(level_num: int) -> Array:
+	## Returns all spawn points for the given level's location.
+	var config = get_level_config(level_num)
+	var location = config.get("location", "kitchen")
+	return SPAWN_POINTS.get(location, SPAWN_POINTS["kitchen"])
 
 
 func is_level_unlocked(level_num: int) -> bool:

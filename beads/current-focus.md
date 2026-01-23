@@ -2,90 +2,67 @@
 
 ## Session Date: 2026-01-22
 
-## Project Status: Location System Complete
+## Project Status: Dog Spawning System In Progress
 
 ### What Was Accomplished This Session
 
-**Touch Input System (bd-c001.2) - CLOSED:**
-- bd-c001.2.1: Swipe detection - reviewed and closed (meets all acceptance criteria)
-- bd-c001.2.2: Tap detection - closed as "not needed" for MVP
-- bd-c001.2.3: Input tuning - closed (feels natural, good thresholds)
+**Treat Throwing Mechanics (bd-t001.1):**
+- bd-t001.1.1: Throw aiming - **CLOSED** (implemented in prototype)
+- bd-t001.1.2: Treat release and flight - **CLOSED** (implemented in prototype)
 
-**Physics and Collision (bd-c001.3) - CLOSED:**
-- bd-c001.3.1: Treat projectile physics - RigidBody2D with gravity, arc trajectory works
-- bd-c001.3.2: Collision detection - Dog Area2D catches treats, floor detects misses
+**Dog Spawning System (bd-t001.2) - IN PROGRESS:**
+- bd-t001.2.1: Dog spawn positions - **CLOSED**
+  - Added `SPAWN_POINTS` dict to GameManager with 3 positions per location
+  - Added `get_spawn_point()` with time-seeded RNG
+  - Added `get_spawn_points_for_level()` helper
+  - Dogs spawn at location-appropriate positions (Y tuned for ground placement)
+- bd-t001.2.5: Dog repositioning timer - **CLOSED**
+  - Dog repositions every 10 seconds during gameplay
+  - Picks a different spawn point (never same as current)
+  - Smooth tween transition (0.5s ease-in-out)
 
-**Timer and Scoring (bd-c001.4) - IN PROGRESS:**
-- bd-c001.4.1: Level timer - **CLOSED** (60s countdown, red warning)
-- bd-c001.4.2: Base scoring - **CLOSED** (100 pts base, score display)
-- bd-c001.4.3: Streak bonus - **CLOSED** (3+ streak = +50% per level, visual feedback)
-- bd-c001.4.5: Star rating - **CLOSED** (accuracy-based thresholds)
-- bd-c001.4.4: Speed bonus - deferred to polish phase
+### Spawn Points Per Location
 
-**Soft Failure Handling (bd-c001.5) - CLOSED:**
-- bd-c001.5.1: Design approach - no game-over, always complete, encourage retry
-- bd-c001.5.2: Level completion regardless of score - timer ends = results screen
-- bd-c001.5.3: Encouraging messages - varied positive messages for all star tiers
-- bd-c001.5.4: Progressive unlock - next level always unlocks, stars for mastery only
-
-**New Location Added:**
-- Riverside (bg_oriental_main.png) - added for levels 9-10
-
-**Location System (bd-p001.2):**
-- bd-p001.2.1: Location/background system - **CLOSED**
-  - Added `BACKGROUNDS` dict and `get_level_background()` to GameManager
-  - `LEVEL_CONFIG` now includes `location` key per level
-  - `gameplay.gd` loads background dynamically based on level
-- bd-p001.2.2: Kitchen location - **CLOSED**
-- bd-p001.2.3: Additional locations - **CLOSED**
-
-**Background Art (bd-a001.4):**
-- bd-a001.4.1: Kitchen background - **CLOSED**
-- bd-a001.4.2: Additional backgrounds - **CLOSED** (Paris, Texas, Italy)
-
-### Level-to-Location Mapping
-
-| Levels | Location | Background |
-|--------|----------|------------|
-| 1-2 | Kitchen | bg_kitchen_main.png |
-| 3-4 | Paris | bg_paris_main.png |
-| 5-6 | Texas | bg_texas_main.png |
-| 7-8 | Italy | bg_italy_main.png |
-| 9-10 | Riverside | bg_oriental_main.png |
+| Location | Spawn Points (X, Y) |
+|----------|---------------------|
+| Kitchen | (1200, 850), (1500, 850), (1750, 850) |
+| Paris | (1150, 820), (1450, 820), (1700, 820) |
+| Texas | (1100, 880), (1400, 880), (1700, 880) |
+| Italy | (1200, 840), (1500, 840), (1750, 840) |
+| Riverside | (1150, 860), (1450, 860), (1700, 860) |
 
 ### Project Structure
 
 ```
 game/
-├── game_manager.gd         # Autoload singleton (state, transitions, progress, backgrounds)
+├── game_manager.gd         # Autoload singleton (state, transitions, progress, backgrounds, spawn points)
 ├── scenes/
 │   ├── main_menu.tscn/gd   # Entry point
 │   ├── level_select.tscn/gd # Level grid
-│   ├── gameplay.tscn/gd    # Core gameplay (now loads dynamic backgrounds)
+│   ├── gameplay.tscn/gd    # Core gameplay (dynamic backgrounds, dog repositioning)
 │   └── results.tscn/gd     # End-of-level results
 ├── dog.tscn/gd             # Dog entity
 ├── treat.tscn/gd           # Treat projectile
 └── assets/
-    └── backgrounds/        # Kitchen, Paris, Texas, Italy backgrounds
+    └── backgrounds/        # Kitchen, Paris, Texas, Italy, Riverside backgrounds
 ```
 
 ### Recommended Next Items
 
-**Core Engine Complete!** All priority 0-1 epics in bd-c001 are now closed.
+**Priority 0 (Dog Spawning - continue epic):**
+- **bd-t001.2.2: Dog availability window** - Dogs catchable for limited time, window shrinks per level
 
-**Priority 1 (Game Feel & Thrower Mode):**
+**Priority 1 (Game Feel & Animation):**
 - **bd-g001.4: Game Feel / Juice** - Screen shake, particles, animated feedback
-- **bd-t001.2: Dog Spawning System** - Multiple dogs, spawn positions, visibility windows
-
-**Priority 1 (First-Time Experience):**
-- **bd-g001.2: First-Time Experience** - Tutorial hints for new players
+- **bd-t001.2.3: Dog exit animations** - Dogs leave via various animations
+- **bd-t001.2.4: Dog catch reaction** - Happy animation/sound on catch
 
 ### Setup for New Session
 
-The game now shows different backgrounds per level. To test:
+The game now has dogs that reposition every 10 seconds. To test:
 1. Open project in Godot
 2. Press F5 or click Play
-3. Select Level → try levels 1, 4, 6, 8 to see different backgrounds
+3. Select any level and watch the dog move to a new position every 10 seconds
 
 ### Not Ready Yet
 
@@ -98,4 +75,5 @@ The game now shows different backgrounds per level. To test:
 ### Open Questions / Blockers
 
 1. **Test on device** - Game runs in editor but needs iOS device testing
-2. **Spawn points per location** - Currently dog position is static; may need location-specific spawn points
+2. **Spawn point Y values** - May need tuning based on visual testing with actual backgrounds
+3. **Repositioning during throw** - Currently dog can move while a treat is in flight; may want to delay repositioning if treat is airborne
