@@ -38,6 +38,7 @@ var aim_assist_enabled := true
 @onready var aim_button: Button = $UI/AimButton
 @onready var pause_button: Button = $UI/PauseButton
 @onready var pause_overlay: CanvasLayer = $PauseOverlay
+@onready var background: TextureRect = $Background
 
 
 func _ready() -> void:
@@ -56,6 +57,10 @@ func _ready() -> void:
 	# Get level config from GameManager
 	var config = GameManager.get_level_config(GameManager.current_level)
 	time_remaining = GameManager.LEVEL_DURATION
+
+	# Load background for current level
+	var bg_path = GameManager.get_level_background(GameManager.current_level)
+	background.texture = load(bg_path)
 
 	# Start immediately (no start button - we came from menu)
 	_start_round()
