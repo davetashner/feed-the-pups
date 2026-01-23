@@ -51,16 +51,37 @@ func _display_results() -> void:
 
 
 func _get_message(stars: int, accuracy: int) -> String:
+	# Encouraging messages for all outcomes - no negative feedback!
 	if stars == 3:
-		return "Amazing! All the pups are so happy!"
+		var messages_3 = [
+			"Amazing! All the pups are so happy!",
+			"Perfect! You're a treat-throwing champion!",
+			"Wow! The pups want more!"
+		]
+		return messages_3[randi() % messages_3.size()]
 	elif stars == 2:
-		return "Great job! The pups loved it!"
+		var messages_2 = [
+			"Great job! The pups loved it!",
+			"Yummy! The dogs are wagging their tails!",
+			"So close to perfect! Great throwing!"
+		]
+		return messages_2[randi() % messages_2.size()]
 	elif stars == 1:
-		return "Good work! The pups are grateful!"
-	elif accuracy >= 30:
-		return "The pups are still hungry! Try again?"
+		var messages_1 = [
+			"Good work! The pups are grateful!",
+			"Nice try! The dogs had fun!",
+			"You fed some hungry pups!"
+		]
+		return messages_1[randi() % messages_1.size()]
 	else:
-		return "Keep practicing! The pups believe in you!"
+		# Zero stars - extra encouraging, never discouraging
+		var messages_0 = [
+			"The pups are still hungry! Try again?",
+			"Keep practicing! The pups believe in you!",
+			"Those treats are tricky! Give it another go!",
+			"The dogs are cheering you on!"
+		]
+		return messages_0[randi() % messages_0.size()]
 
 
 func _on_replay_pressed() -> void:

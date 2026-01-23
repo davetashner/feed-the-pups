@@ -20,6 +20,13 @@
 - bd-c001.4.2: Base scoring - **CLOSED** (100 pts base, score display)
 - bd-c001.4.3: Streak bonus - **CLOSED** (3+ streak = +50% per level, visual feedback)
 - bd-c001.4.5: Star rating - **CLOSED** (accuracy-based thresholds)
+- bd-c001.4.4: Speed bonus - deferred to polish phase
+
+**Soft Failure Handling (bd-c001.5) - CLOSED:**
+- bd-c001.5.1: Design approach - no game-over, always complete, encourage retry
+- bd-c001.5.2: Level completion regardless of score - timer ends = results screen
+- bd-c001.5.3: Encouraging messages - varied positive messages for all star tiers
+- bd-c001.5.4: Progressive unlock - next level always unlocks, stars for mastery only
 
 **New Location Added:**
 - Riverside (bg_oriental_main.png) - added for levels 9-10
@@ -64,12 +71,14 @@ game/
 
 ### Recommended Next Items
 
-**Priority 0 (Core Engine):**
-1. **bd-c001.4: Timer and Scoring** - Formal timer/score system (prototype has basics)
+**Core Engine Complete!** All priority 0-1 epics in bd-c001 are now closed.
 
-**Priority 1 (Core Engine & Game Feel):**
-- **bd-c001.5: Soft Failure Handling** - Encouraging messaging, no game-over states
+**Priority 1 (Game Feel & Thrower Mode):**
 - **bd-g001.4: Game Feel / Juice** - Screen shake, particles, animated feedback
+- **bd-t001.2: Dog Spawning System** - Multiple dogs, spawn positions, visibility windows
+
+**Priority 1 (First-Time Experience):**
+- **bd-g001.2: First-Time Experience** - Tutorial hints for new players
 
 ### Setup for New Session
 
