@@ -45,20 +45,21 @@ const BACKGROUNDS = {
 	"paris": "res://assets/backgrounds/bg_paris_main.png",
 	"texas": "res://assets/backgrounds/bg_texas_main.png",
 	"italy": "res://assets/backgrounds/bg_italy_main.png",
+	"riverside": "res://assets/backgrounds/bg_oriental_main.png",
 }
 
 # Per-level settings (visibility window, spawn interval, background)
 const LEVEL_CONFIG = [
 	{"visibility": 4.0, "spawn_interval": 5.0, "dogs_max": 1, "location": "kitchen"},   # Level 1
 	{"visibility": 3.85, "spawn_interval": 4.8, "dogs_max": 2, "location": "kitchen"},  # Level 2
-	{"visibility": 3.70, "spawn_interval": 4.6, "dogs_max": 2, "location": "kitchen"},  # Level 3
+	{"visibility": 3.70, "spawn_interval": 4.6, "dogs_max": 2, "location": "paris"},    # Level 3
 	{"visibility": 3.55, "spawn_interval": 4.4, "dogs_max": 2, "location": "paris"},    # Level 4
-	{"visibility": 3.40, "spawn_interval": 4.2, "dogs_max": 3, "location": "paris"},    # Level 5
+	{"visibility": 3.40, "spawn_interval": 4.2, "dogs_max": 3, "location": "texas"},    # Level 5
 	{"visibility": 3.25, "spawn_interval": 4.0, "dogs_max": 3, "location": "texas"},    # Level 6
-	{"visibility": 3.10, "spawn_interval": 3.8, "dogs_max": 3, "location": "texas"},    # Level 7
+	{"visibility": 3.10, "spawn_interval": 3.8, "dogs_max": 3, "location": "italy"},    # Level 7
 	{"visibility": 2.95, "spawn_interval": 3.6, "dogs_max": 4, "location": "italy"},    # Level 8
-	{"visibility": 2.80, "spawn_interval": 3.4, "dogs_max": 4, "location": "italy"},    # Level 9
-	{"visibility": 2.65, "spawn_interval": 3.2, "dogs_max": 5, "location": "italy"},    # Level 10
+	{"visibility": 2.80, "spawn_interval": 3.4, "dogs_max": 4, "location": "riverside"},  # Level 9
+	{"visibility": 2.65, "spawn_interval": 3.2, "dogs_max": 5, "location": "riverside"},  # Level 10
 ]
 
 # Results from last completed level (for results screen)

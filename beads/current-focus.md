@@ -15,6 +15,15 @@
 - bd-c001.3.1: Treat projectile physics - RigidBody2D with gravity, arc trajectory works
 - bd-c001.3.2: Collision detection - Dog Area2D catches treats, floor detects misses
 
+**Timer and Scoring (bd-c001.4) - IN PROGRESS:**
+- bd-c001.4.1: Level timer - **CLOSED** (60s countdown, red warning)
+- bd-c001.4.2: Base scoring - **CLOSED** (100 pts base, score display)
+- bd-c001.4.3: Streak bonus - **CLOSED** (3+ streak = +50% per level, visual feedback)
+- bd-c001.4.5: Star rating - **CLOSED** (accuracy-based thresholds)
+
+**New Location Added:**
+- Riverside (bg_oriental_main.png) - added for levels 9-10
+
 **Location System (bd-p001.2):**
 - bd-p001.2.1: Location/background system - **CLOSED**
   - Added `BACKGROUNDS` dict and `get_level_background()` to GameManager
@@ -31,10 +40,11 @@
 
 | Levels | Location | Background |
 |--------|----------|------------|
-| 1-3 | Kitchen | bg_kitchen_main.png |
-| 4-5 | Paris | bg_paris_main.png |
-| 6-7 | Texas | bg_texas_main.png |
-| 8-10 | Italy | bg_italy_main.png |
+| 1-2 | Kitchen | bg_kitchen_main.png |
+| 3-4 | Paris | bg_paris_main.png |
+| 5-6 | Texas | bg_texas_main.png |
+| 7-8 | Italy | bg_italy_main.png |
+| 9-10 | Riverside | bg_oriental_main.png |
 
 ### Project Structure
 

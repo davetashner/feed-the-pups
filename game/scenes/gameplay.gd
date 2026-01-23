@@ -22,6 +22,14 @@ var is_swiping := false
 # Score tracking
 var catches := 0
 var misses := 0
+var score := 0
+var current_streak := 0
+var best_streak := 0
+
+# Scoring constants
+const BASE_POINTS := 100
+const STREAK_THRESHOLD := 3  # Streak bonus starts at 3 catches
+const STREAK_MULTIPLIER := 0.5  # +50% per streak level above threshold
 
 # Round state
 var time_remaining := 60.0
@@ -32,6 +40,7 @@ var aim_assist_enabled := true
 
 @onready var score_label: Label = $UI/ScoreLabel
 @onready var timer_label: Label = $UI/TimerLabel
+@onready var streak_label: Label = $UI/StreakLabel
 @onready var throw_zone: ColorRect = $ThrowZone
 @onready var dog: Area2D = $Dog
 @onready var trajectory_line: Line2D = $TrajectoryLine
@@ -192,11 +201,26 @@ func _throw_treat(start_pos: Vector2, swipe_vector: Vector2) -> void:
 
 func _on_treat_caught() -> void:
 	catches += 1
+	current_streak += 1
+	if current_streak > best_streak:
+		best_streak = current_streak
+
+	# Calculate points with streak bonus
+	var points := BASE_POINTS
+	if current_streak >= STREAK_THRESHOLD:
+		var streak_level := current_streak - STREAK_THRESHOLD + 1
+		var multiplier := 1.0 + (streak_level * STREAK_MULTIPLIER)
+		points = int(BASE_POINTS * multiplier)
+
+	score += points
 	_update_score_display()
+	_update_streak_display()
 
 
 func _on_treat_missed(_treat: Node) -> void:
 	misses += 1
+	current_streak = 0
+	_update_streak_display()
 
 
 func _on_aim_button_pressed() -> void:
@@ -213,11 +237,15 @@ func _update_aim_button_text() -> void:
 func _start_round() -> void:
 	catches = 0
 	misses = 0
+	score = 0
+	current_streak = 0
+	best_streak = 0
 	time_remaining = GameManager.LEVEL_DURATION
 	round_active = true
 	throw_zone.visible = true
 	pause_overlay.visible = false
 	_update_score_display()
+	_update_streak_display()
 	_update_timer_display()
 	_clear_all_treats()
 
@@ -228,7 +256,7 @@ func _end_round() -> void:
 	_clear_trajectory()
 
 	# Transition to results screen via GameManager
-	GameManager.show_results(catches * 100, catches, misses)
+	GameManager.show_results(score, catches, misses)
 
 
 func _update_timer_display() -> void:
@@ -242,7 +270,20 @@ func _update_timer_display() -> void:
 
 
 func _update_score_display() -> void:
-	score_label.text = "Catches: %d" % catches
+	score_label.text = "Score: %d" % score
+
+
+func _update_streak_display() -> void:
+	if current_streak >= STREAK_THRESHOLD:
+		streak_label.text = "Streak: %d! 🔥" % current_streak
+		streak_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2))
+		streak_label.visible = true
+	elif current_streak > 0:
+		streak_label.text = "Streak: %d" % current_streak
+		streak_label.remove_theme_color_override("font_color")
+		streak_label.visible = true
+	else:
+		streak_label.visible = false
 
 
 func _clear_all_treats() -> void:
